@@ -34,9 +34,9 @@ public class Person {
         return surname;
     }
 
-    public int getAge() {
+    public OptionalInt getAge() {
         if (age.isPresent()) {
-            return age.getAsInt();
+            return age;
         } else {
             throw new IllegalStateException("Возраст этого человека неизвестен, используйте для проверки метод hasAge, прежде чем вызывать этот метод");
         }
