@@ -35,11 +35,7 @@ public class Person {
     }
 
     public OptionalInt getAge() {
-        if (age.isPresent()) {
-            return age;
-        } else {
-            throw new IllegalStateException("Возраст этого человека неизвестен, используйте для проверки метод hasAge, прежде чем вызывать этот метод");
-        }
+        return age;
     }
 
     public String getAddress() {
