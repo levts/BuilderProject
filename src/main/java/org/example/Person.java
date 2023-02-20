@@ -1,12 +1,14 @@
 package org.example;
 
+import java.util.OptionalInt;
+
 public class Person {
     private final String name;
     private final String surname;
-    private int age = -1;
-    private String address;
+    private OptionalInt age = OptionalInt.empty();
+    private String address = null;
 
-    public Person(String name, String surname, int age, String address) {
+    public Person(String name, String surname, OptionalInt age, String address) {
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -16,7 +18,7 @@ public class Person {
     public Person(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
-        this.age = age;
+        this.age = OptionalInt.of(age);
     }
 
     public Person(String name, String surname) {
@@ -33,8 +35,8 @@ public class Person {
     }
 
     public int getAge() {
-        if (hasAge()) {
-            return age;
+        if (age.isPresent()) {
+            return age.getAsInt();
         } else {
             throw new IllegalStateException("Возраст этого человека неизвестен, используйте для проверки метод hasAge, прежде чем вызывать этот метод");
         }
@@ -53,7 +55,7 @@ public class Person {
     }
 
     public boolean hasAge() {
-        return age != -1;
+        return age.isEmpty();
     }
 
     public boolean hasAddress() {
@@ -61,7 +63,14 @@ public class Person {
     }
 
     public void happyBirthday() {
-        this.age++;
+        if(this.age.isPresent()) {
+            int currentAge = this.age.getAsInt();
+            currentAge++;
+            this.age = OptionalInt.of(currentAge);
+        }
+        else{
+            System.out.println("Возраст этого человека неизвестен.");
+        }
     }
 
     public PersonBuilder newChildBuilder() {
@@ -73,10 +82,16 @@ public class Person {
 
     @Override
     public String toString() {
+        int ageToString;
+        if(this.age.isPresent()) {
+            ageToString = this.age.getAsInt();
+        } else{
+            ageToString = 0;
+        }
         return "Person{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", age=" + age +
+                ", age=" + ageToString +
                 ", address='" + address + '\'' +
                 '}';
     }

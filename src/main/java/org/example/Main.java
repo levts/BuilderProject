@@ -26,5 +26,15 @@ public class Main {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+        try {
+            // Возраста нет
+            Person Oleg = new PersonBuilder()
+                    .name("Олег")
+                    .surname("Фёдоров")
+                    .build();
+            System.out.println("Возраст Олега: " + Oleg.getAge());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 }

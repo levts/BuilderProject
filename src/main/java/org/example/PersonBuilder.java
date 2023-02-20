@@ -1,10 +1,12 @@
 package org.example;
 
+import java.util.OptionalInt;
+
 public class PersonBuilder {
     private String name;
     private String surname;
-    private int age;
-    private String address;
+    private OptionalInt age = OptionalInt.empty();
+    private String address = null;
 
     public PersonBuilder name(String name) {
         this.name = name;
@@ -20,7 +22,7 @@ public class PersonBuilder {
         if ((age < 0) || (age > 130)) {
             throw new IllegalArgumentException("Вы указали некорректный возраст :(");
         }
-        this.age = age;
+        this.age = OptionalInt.of(age);
         return this;
     }
 
